@@ -1,0 +1,15 @@
+{
+  "label": "DemoProject",
+  "description": "Define your samples here. See <a href=https://github.com/igvteam/igv-webapp>IGV-Webapp</a> ",
+  "genomeID": "GRCh38",
+  "tracks": [
+    {
+      "name": "Bam sample",
+      "url": "data/test.bam",
+      "indexURL": "data/test.bam.bai",
+      "type": "alignment",
+      "format": "bam"
+    }
+  ]
+}
+

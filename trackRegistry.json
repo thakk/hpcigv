@@ -1,0 +1,66 @@
+{
+  "hg19": [
+    "resources/tracks/hg19_annotations.json",
+    "resources/tracks/hg19_variants.json",
+    "resources/tracks/hg19_encode.json",
+    "resources/tracks/hg19_platinum_genomes.json",
+    "resources/tracks/hg19_tutorials.json"
+  ],
+  "hg38": [
+    "custom/igv/igv.json",
+    "resources/tracks/hg38_annotations.json",
+    "resources/tracks/hg38_encode.json"
+  ],
+  "hg38_1kg": [
+    "resources/tracks/hg38_annotations.json",
+    "resources/tracks/hg38_encode.json",
+    "resources/tracks/hg38_1KG_lowCoverageCrams.json"
+  ],
+  "mm10": [
+    "resources/tracks/mm10_annotations.json",
+    "resources/tracks/mm10_encode.json"
+  ],
+  "danRer11": [
+    "resources/tracks/danRer11_annotations.json"
+  ],
+  "danRer10": [
+    "resources/tracks/danRer10_annotations.json"
+  ],
+  "dm3" : [
+    "resources/tracks/dm3_encode.json"
+  ],
+  "dm6": [
+    "resources/tracks/dm6_annotations.json",
+    "resources/tracks/dm6_encode.json"
+  ],
+  "ce11": [
+    "resources/tracks/ce11_annotations.json"
+  ],
+  "rn6": [
+    "resources/tracks/rn6_annotations.json"
+  ],
+  "mm9": [
+    "resources/tracks/mm9_annotations.json"
+  ],
+  "susScr11": [
+    "resources/tracks/susScr11_annotations.json"
+  ],
+  "panTro4": [
+    "resources/tracks/panTro4_annotations.json"
+  ],
+  "panPan2": [
+    "resources/tracks/panPan2_annotations.json"
+  ],
+  "gorGor4": [
+    "resources/tracks/gorGor4_annotations.json"
+  ],
+  "canFam3": [
+    "resources/tracks/canFam3_annotations.json"
+  ],
+  "bosTau8": [
+    "resources/tracks/bosTau8_annotations.json"
+  ],
+  "bosTau9": [
+    "resources/tracks/bosTau9_annotations.json"
+  ]
+}

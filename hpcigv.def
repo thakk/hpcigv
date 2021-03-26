@@ -1,0 +1,32 @@
+Bootstrap: docker
+From: ubuntu:20.10
+Stage: build
+
+%setup
+
+%files
+	./trackRegistry.json
+
+%post
+        apt update
+        apt install -y npm
+	apt install -y git
+	git clone https://github.com/igvteam/igv-webapp.git
+	cd ./igv-webapp/
+	npm install
+	npm run build
+	mv /trackRegistry.json /igv-webapp/dist/resources/tracks
+	# See https://github.com/igvteam/igv-webapp
+	# To enable local reference tracks etc. edit igvwebConfig.js and appropriate json files.
+
+%environment
+
+%runscript
+    echo "Container was created $NOW"
+    echo "Arguments received: $*"
+    exec echo "$@"
+
+%help
+    IGV test
+
+
