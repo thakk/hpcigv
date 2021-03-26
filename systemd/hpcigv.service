@@ -1,0 +1,19 @@
+[Unit]
+Description=IGV webapp
+Documentation=https://github.com/igvteam/igv-webapp
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+EnvironmentFile=~/.config/systemd/hpcigv.conf
+ExecStart=singularity exec --bind $CONFIGDIR:/igv-webapp/dist/custom --bind $DATADIR:/igv-webapp/dist/data $IGVIMAGE npx http-server --port $PORT /igv-webapp/dist
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=igv
+
+[Install]
+WantedBy=multi-user.target
