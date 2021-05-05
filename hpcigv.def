@@ -6,6 +6,8 @@ Stage: build
 
 %files
 	./trackRegistry.json
+	./genomes.json
+	./igvwebConfig.js
 
 %post
         apt update
@@ -16,6 +18,8 @@ Stage: build
 	npm install
 	npm run build
 	mv /trackRegistry.json /igv-webapp/dist/resources/tracks
+	mv /genomes.json /igv-webapp/dist/resources
+	mv /igvwebConfig.js /igv-webapp/dist
 	# See https://github.com/igvteam/igv-webapp
 	# To enable local reference tracks etc. edit igvwebConfig.js and appropriate json files.
 
