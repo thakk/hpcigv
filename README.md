@@ -2,17 +2,52 @@
 
 Singularity container for custom [IGV webapp](https://igv.org). Intended for HPC/server use where server-local files need to be accessed.
 
-## Building container
+## Installation
 
-In machine with `sudo singularity` access:
+### Buiding container
+
+Usually container building is not possible inside cluster. In machine with `sudo singularity` access:
 
 ```bash
 sudo singularity build hpcigv.sif hpcigv.def
 ```
 
-Then copy *hpcigv.sif* to your server.
+Then copy *hpcigv.sif* to your cluster.
 
-## Running container
+
+### On HPC cluster
+
+- `git clone https://github.com/thakk/hpcigv`
+- Edit *hpcigv/launcher.sh*. Modify variables CONTAINER and BINDPATHS to suit your cluster.
+
+
+### On Windows workstation
+
+
+- `git clone https://github.com/thakk/hpcigv`
+- Install [Cygwin](https://www.cygwin.com/) with ssh client. Configure ssh keys and enable non-interactive logging to your cluster.
+- Edit *hpcigv/hpcigv_cygwinlauncher.sh* . Modify variable IGVLAUNCHER to match your cluster installation.
+
+### On Linux/Mac/Bsd/... workstation
+
+- `git clone https://github.com/thakk/hpcigv`
+- Edit *hpcigv/hpcigv_cygwinlauncher.sh* . Modify variable IGVLAUNCHER to match your cluster installation. Replace 2 last lines so that web browser is opened automatically.
+
+## Launcing IGV
+
+Easiest way to launch IGV on server is to use provided *hpcigv_cygwinlauncher.sh* . This script opens connection to server with ssh and starts IGV container within screen- session. Subsequently ssh tunnel is created and local default browser is opened.
+
+
+## Server side global configuration
+
+By default *launcher.sh* loads IGV json files under *custom/igv/* . These files define server- side files that are accessible from IGV. To generate json files use *biosamplestojson.sh* . If you wish to use server- side reference files edit *genomes.json*.
+
+
+## Individual project configuration
+
+Edit *custom/igv/igv.json* and add your files in tracks- section.
+
+## Manually running container
 
 Server side:
 
@@ -21,7 +56,7 @@ PORT=31337 # Some unused port in server
 singularity exec --bind $HOME/hpcigv/custom:/igv-webapp/dist/custom --bind $HOME/data:/igv-webapp/dist/data hpcigv.sif npx http-server --port $PORT /igv-webapp/dist
 ```
 
-File $HOME/hpcigv/custom/igv/igv.json defines custom samples. Samples are binded to appropriate directory within container and igv-webapp. Here, hg38 genome must be selected to see server-side samples. If other genomes are needed edit trackRegistry.json and rebuild container.
+File *hpcigv/custom/igv/igv.json* defines custom samples. Samples must be bound to appropriate directory within container and igv-webapp.
 
 
 ## Connecting IGV
@@ -37,9 +72,8 @@ Select hg38 genome to see DemoProject in Tracks- menu.
 
 ## Tips
 
-Use separate server-side igv.jsons for different projects. Bind singularity mounts accordingly.
+
 
 ## TODO
 
-- Server side shell script for building igv.json automatically
 - Use smaller base image

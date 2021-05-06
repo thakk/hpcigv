@@ -7,7 +7,7 @@
 #  -parametrize
 
 IGVLAUNCHER="/lustre/compbio/pub/apps/hpcigv-1.0/launcher.sh" # Edit this to suit your server environment
-GENOMEFILE="-g /lustre/compbio/pub/apps/hpcigv-1.0/genomes.json"
+GENOMEFILE=""
 
 usage() {
         echo "hpcigv_cygwinlauncher.sh"
