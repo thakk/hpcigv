@@ -27,6 +27,7 @@ Then copy *hpcigv.sif* to your cluster.
 - `git clone https://github.com/thakk/hpcigv`
 - Install [Cygwin](https://www.cygwin.com/) with ssh client. Configure ssh keys and enable non-interactive logging to your cluster.
 - Edit *hpcigv/hpcigv_cygwinlauncher.sh* . Modify variable IGVLAUNCHER to match your cluster installation.
+- (optional) Create desktop icon for IGV. For example copy Cygwin launcher icon and modify Properties->Shortcut->Target to something like `D:\cygwin64\bin\mintty.exe /bin/env /bin/bash --login /cygdrive/c/Users/WindowsUser/Desktop/bash/hpcigv_cygwinlauncher.sh -u myusername -s myclusterlogin.site.com -g /lustre/compbio/pub/apps/hpcigv-1.0/genomes.json`
 
 ### On Linux/Mac/Bsd/... workstation
 
