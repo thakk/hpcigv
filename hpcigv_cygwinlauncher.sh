@@ -12,7 +12,8 @@ GENOMEFILE=""
 usage() {
         echo "hpcigv_cygwinlauncher.sh"
         echo " Workstation- side IGV launcher"
-        echo " Usage: hpcigv_cygwinlauncher.sh -u <user> -s <server> -l <<localport, default=random>>"
+        echo " Usage: hpcigv_cygwinlauncher.sh -u <user> -s <server> -l <<localport, default=random>> -c <dir>"
+	echo " -c <dir> Use custom jsons in this directory ( default: custom- subdirectory in IGV launcher script directory)"
 }
 
 no_args="true"
@@ -20,9 +21,9 @@ no_args="true"
 SERVERUSER=""
 SERVER=""
 LOCALPORT=`python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()' | tr -d '\r'`  # Remove DOS newline in Cygwin
+JSONDIR=""
 
-
-while getopts "u:s:l:g:" arg; do
+while getopts "u:s:l:g:c:" arg; do
         case $arg in
                 u)
                         SERVERUSER=${OPTARG}
@@ -35,6 +36,9 @@ while getopts "u:s:l:g:" arg; do
                         ;;
 		g)
 			GENOMEFILE="-g "${OPTARG}
+			;;
+		c)
+			JSONDIR=" -c "${OPTARG}
 			;;
                 *)
                         usage
@@ -62,7 +66,7 @@ readonly SERVERPORT=`ssh ${SERVERUSER}@${SERVER} " python -c 'import socket; s=s
 echo "Server port: "${SERVERPORT}
 
 echo "Starting IGV on server"
-CMD=${IGVLAUNCHER}" -p "${SERVERPORT}" "${GENOMEFILE}
+CMD=${IGVLAUNCHER}" -p "${SERVERPORT}" "${GENOMEFILE}" "${JSONDIR}
 echo $CMD
 ssh -f ${SERVERUSER}@${SERVER} "screen -L -d -m sh -c 'eval ${CMD}'"
 

@@ -15,15 +15,12 @@ usage() {
 	echo " IGV launcher script"
 	echo ""
 	echo " -p <<port>>	Optional port argument"
-	echo "* -d <dir>		Optional dist directory. Used for custom projects"	
 	echo " -g <file>	Override default genomes.json with this file"
-	echo " -c <dir>	Find custom jsons in this directory ( default: custom- subdirectory in IGV launcher script directory)"
-
-	echo "*	Unimplemented"
+	echo " -c <dir>		Use custom jsons in this directory ( default: custom- subdirectory in IGV launcher script directory)"
 }
 
 GENOMESJSON=""
-JSONDIR=${SCRIPTPATH}/custom
+JSONDIR=${SCRIPTPATH}/custom/igv
 
 while getopts "hp:d:c:g:" arg; do
 	case $arg in
@@ -50,4 +47,4 @@ done
 
 
 #singularity exec --bind $HOME/hpcigv/custom:/igv-webapp/dist/custom --bind $HOME/data:/igv-webapp/dist/data --bind /lustre --bind /bmt-data:/igv-webapp/dist/bmt-data  hpcigv.sif npx http-server --port $PORT /igv-webapp/dist
-singularity exec --bind ${JSONDIR}:/igv-webapp/dist/custom ${GENOMESJSON} ${BINDPATHS} ${CONTAINER} npx http-server --port $PORT /igv-webapp/dist
+singularity exec --bind ${JSONDIR}:/igv-webapp/dist/custom/igv ${GENOMESJSON} ${BINDPATHS} ${CONTAINER} npx http-server --port $PORT /igv-webapp/dist
