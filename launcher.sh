@@ -22,7 +22,7 @@ usage() {
 GENOMESJSON=""
 JSONDIR=${SCRIPTPATH}/custom/igv
 
-while getopts "hp:d:c:g:" arg; do
+while getopts "hp:d:c:g:j:" arg; do
 	case $arg in
     	h)
 			usage
@@ -35,7 +35,14 @@ while getopts "hp:d:c:g:" arg; do
 			JSONDIR=${OPTARG}
 			;;
 		g)
-			GENOMESJSON="--bind "${OPTARG}":/igv-webapp/dist/genomes.json"
+			GENOMESJSON="--bind "${OPTARG}":/igv-webapp/dist/resources/genomes.json"
+            ;;
+        j)
+            IGVWEBCONFIG="--bind "${OPTARG}":/igv-webapp/dist/igvwebConfig.js"
+            ;;
+        *)
+            exit 1
+            ;;
 	esac
 done
 
@@ -47,4 +54,4 @@ done
 
 
 #singularity exec --bind $HOME/hpcigv/custom:/igv-webapp/dist/custom --bind $HOME/data:/igv-webapp/dist/data --bind /lustre --bind /bmt-data:/igv-webapp/dist/bmt-data  hpcigv.sif npx http-server --port $PORT /igv-webapp/dist
-singularity exec --bind ${JSONDIR}:/igv-webapp/dist/custom/igv ${GENOMESJSON} ${BINDPATHS} ${CONTAINER} npx http-server --port $PORT /igv-webapp/dist
+singularity exec --bind ${JSONDIR}:/igv-webapp/dist/custom/igv ${GENOMESJSON} ${BINDPATHS} ${IGVWEBCONFIG} ${CONTAINER} npx http-server --port $PORT /igv-webapp/dist

@@ -14,6 +14,16 @@
     "resources/tracks/hg38_encode.json"
   ],
  "hg19": [
+    "custom/igv/igv.json",
+    "custom/igv/annotation.json",
+    "custom/igv/alignment.json",
+    "custom/igv/variant.json",
+    "custom/igv/wig.json",
+    "custom/igv/seg.json",
+    "custom/igv/spliceJunctions.json",
+    "custom/igv/gwas.json",
+    "custom/igv/interaction.json",
+    "custom/igv/mut.json",
     "resources/tracks/hg19_annotations.json",
     "resources/tracks/hg19_variants.json",
     "resources/tracks/hg19_encode.json",

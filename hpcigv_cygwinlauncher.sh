@@ -13,7 +13,10 @@ usage() {
         echo "hpcigv_cygwinlauncher.sh"
         echo " Workstation- side IGV launcher"
         echo " Usage: hpcigv_cygwinlauncher.sh -u <user> -s <server> -l <<localport, default=random>> -c <dir>"
-	echo " -c <dir> Use custom jsons in this directory ( default: custom- subdirectory in IGV launcher script directory)"
+    	echo " -c <dir> Use custom jsons in this directory ( default: custom- subdirectory in IGV launcher script directory)"
+    	echo " -g <file> Use custom genomefile"
+        echo " -j <file> Use custom igvwebConfig.js . Used often in combination with -g switch"
+ 
 }
 
 no_args="true"
@@ -23,7 +26,7 @@ SERVER=""
 LOCALPORT=`python -c 'import socket; s=socket.socket(); s.bind(("", 0)); print(s.getsockname()[1]); s.close()' | tr -d '\r'`  # Remove DOS newline in Cygwin
 JSONDIR=""
 
-while getopts "u:s:l:g:c:" arg; do
+while getopts "u:s:l:g:c:j:" arg; do
         case $arg in
                 u)
                         SERVERUSER=${OPTARG}
@@ -34,12 +37,15 @@ while getopts "u:s:l:g:c:" arg; do
                 l)
                         LOCALPORT=${OPTARG}
                         ;;
-		g)
-			GENOMEFILE="-g "${OPTARG}
-			;;
-		c)
-			JSONDIR=" -c "${OPTARG}
-			;;
+        		g)
+		            	GENOMEFILE="-g "${OPTARG}
+			            ;;
+        		c)
+		            	JSONDIR=" -c "${OPTARG}
+            			;;
+                j)
+                        IGVWEBCONFIG=" -j "${OPTARG}
+                        ;;
                 *)
                         usage
                         exit 1
@@ -66,7 +72,7 @@ readonly SERVERPORT=`ssh ${SERVERUSER}@${SERVER} " python -c 'import socket; s=s
 echo "Server port: "${SERVERPORT}
 
 echo "Starting IGV on server"
-CMD=${IGVLAUNCHER}" -p "${SERVERPORT}" "${GENOMEFILE}" "${JSONDIR}
+CMD=${IGVLAUNCHER}" -p "${SERVERPORT}" "${GENOMEFILE}" "${JSONDIR}" "${IGVWEBCONFIG}
 echo $CMD
 ssh -f ${SERVERUSER}@${SERVER} "screen -L -d -m sh -c 'eval ${CMD}'"
 
